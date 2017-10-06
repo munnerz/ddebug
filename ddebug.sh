@@ -11,7 +11,7 @@ if [ -z "$CONTAINER_ID" ]; then
 fi
 
 jqcmd='jq'
-if ! which "$jqcmd"; then
+if ! which "$jqcmd" >/dev/null; then
 	jqcmd='docker run -i --rm munnerz/ddebug jq'
 fi
 
@@ -19,12 +19,12 @@ jqpath='.[0].GraphDriver.Data.MergedDir'
 rootfs_path=""
 get_rootfs() {
 	jsonOutput=$(docker inspect $CONTAINER_ID)
-	if ! $!; then
+	if [ ! $? -eq 0 ]; then
 		echo "Error inspecting container '$CONTAINER_ID'"
 		exit 1
 	fi
 	rootfs_path=$(echo $jsonOutput | $jqcmd -r $jqpath)
-	if ! $!; then
+	if [ ! $? -eq 0 ]; then
 		echo "Error parsing container info for '$CONTAINER_ID'"
 		exit 1
 	fi
