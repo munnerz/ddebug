@@ -51,3 +51,13 @@ $ docker run --rm -it \
 ```
 
 This should immediately drop you into a debugging shell.
+
+NOTE: if using OSX under Docker for Mac, you must replace `$(which docker)`
+with the absolute path to the docker binary within the Moby VM, something like:
+
+```
+$ docker run --rm -it \
+	-v /usr/bin/docker:/usr/bin/docker \
+	-v /var/run/docker.sock:/var/run/docker.sock \
+	munnerz/ddebug epic_kepler
+```
