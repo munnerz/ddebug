@@ -10,6 +10,7 @@ if [ -z "$CONTAINER_ID" ]; then
 	exit 1
 fi
 
+jqcmd='docker run -i --rm realguess/jq:1.4 jq'
 jqpath='.[0].GraphDriver.Data.MergedDir'
 rootfs_path=""
 get_rootfs() {
@@ -18,7 +19,7 @@ get_rootfs() {
 		echo "Error inspecting container '$CONTAINER_ID'"
 		exit 1
 	fi
-	rootfs_path=$(echo $jsonOutput | jq -r $jqpath)
+	rootfs_path=$(echo $jsonOutput | $jqcmd -r $jqpath)
 	if ! $!; then
 		echo "Error parsing container info for '$CONTAINER_ID'"
 		exit 1
