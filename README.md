@@ -35,3 +35,19 @@ You can optionally override the debug image used like so:
 ```bash
 $ ddebug.sh epic_kepler debian:jessie
 ```
+
+### Running ddebug in Docker
+
+If you want to make it easy to run ddebug without having to upload a script to
+your hosts, or if you want to execute ddebug without having to SSH/configure
+your docker daemon (i.e. via Kubernetes), a Docker image for ddebug has been
+made available on Dockerhub. You can try this out with:
+
+```
+$ docker run --rm -it \
+	-v $(which docker):/usr/bin/docker \
+	-v /var/run/docker.sock:/var/run/docker.sock \
+	munnerz/ddebug epic_kepler
+```
+
+This should immediately drop you into a debugging shell.

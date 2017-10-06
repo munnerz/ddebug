@@ -10,7 +10,7 @@ if [ -z "$CONTAINER_ID" ]; then
 	exit 1
 fi
 
-jqcmd='docker run -i --rm realguess/jq:1.4 jq'
+jqcmd='docker run -i --rm munnerz/ddebug jq'
 jqpath='.[0].GraphDriver.Data.MergedDir'
 rootfs_path=""
 get_rootfs() {
