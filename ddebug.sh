@@ -26,7 +26,7 @@ get_rootfs() {
 }
 get_rootfs
 
-exec docker run -it \
+exec docker run -it --rm \
 		-v $rootfs_path:/containerfs \
 		--net=container:$CONTAINER_ID \
 		--pid=container:$CONTAINER_ID \
